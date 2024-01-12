@@ -1,3 +1,6 @@
+
+import time
+from pinotdb import connect
 import numpy as np
 import streamlit as st
 import pandas as pd
@@ -80,3 +83,51 @@ fig_product_sales = px.bar(
 )
 
 st.plotly_chart(fig_product_sales)
+
+try:
+    conn = connect(host='192.168.4.87', port=30003,path='/query/sql', scheme='http')
+
+
+    # if conn.closed:        
+    #      st.success("Connected to Pinot!")     
+    # else:         
+    #     st.error("Connection to Pinot failed.")
+
+    # curs = conn.cursor()
+    query = f"select * from project limit 10"    
+    result = conn.execute(query).fetchall()     
+    st.write(result)
+    # curs.execute("""7
+    #    select * from financialManagementDetails limit 10
+    #     """).fetchall()
+    
+    # for row in curs:
+    #     print(row)
+
+except Exception as e:
+    print(f"Error: {e}")
+
+
+# max_retries = 3
+# retry_delay = 2  # seconds
+
+# for retry_count in range(max_retries):
+#     try:
+#         conn = connect(host='192.168.4.87', port=30004, path='/query/sql', scheme='http', timeout=10)
+#         curs = conn.cursor()
+
+#         curs.execute("""
+#             SELECT * 
+#             FROM baseballStats
+#             WHERE league IN (%(leagues)s)
+#             """, {"leagues": ["AA", "NL"]})
+
+#         for row in curs:
+#             print(row)
+
+#         break  # Connection and query successful, exit loop
+
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         print(f"Retrying (attempt {retry_count + 1}/{max_retries})...")
+#         time.sleep(retry_delay)

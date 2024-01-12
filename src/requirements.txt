@@ -1,0 +1,7 @@
+pandas
+pinotdb
+streamlit
+numpy
+plotly-express
+mysql-connector-python
+msal_streamlit_authentication

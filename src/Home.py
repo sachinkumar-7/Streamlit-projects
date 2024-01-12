@@ -1,6 +1,14 @@
 import streamlit as st
 from msal_streamlit_authentication import msal_authentication
 
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 login_token = msal_authentication(
     auth={
